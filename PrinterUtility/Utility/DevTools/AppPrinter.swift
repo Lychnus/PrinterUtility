@@ -76,22 +76,29 @@ public protocol ConsolePrinter {
     )
 }
 
-// MARK: - Protocol Extension with Default Parameters
-extension ConsolePrinter {
+// MARK: - Console Printer Wrapper For Default Parameters
+/// This struct provides a wrapper for `ConsolePrinter` that exposes its internals with default parameters.
+public struct ConsolePrinterWrapper {
+    private let printer: ConsolePrinter
+
+    public init(printer: ConsolePrinter) {
+        self.printer = printer
+    }
+
     public func success(_ text: String, includeContext: Bool = false, file: String = #file, line: Int = #line, function: String = #function) {
-        self.success(text, includeContext: includeContext, file: file, line: line, function: function)
+        printer.success(text, includeContext: includeContext, file: file, line: line, function: function)
     }
-    
+
     public func info(_ text: String, includeContext: Bool = false, file: String = #file, line: Int = #line, function: String = #function) {
-        self.info(text, includeContext: includeContext, file: file, line: line, function: function)
+        printer.info(text, includeContext: includeContext, file: file, line: line, function: function)
     }
-    
+
     public func warning(_ text: String, includeContext: Bool = false, file: String = #file, line: Int = #line, function: String = #function) {
-        self.warning(text, includeContext: includeContext, file: file, line: line, function: function)
+        printer.warning(text, includeContext: includeContext, file: file, line: line, function: function)
     }
-    
+
     public func error(_ text: String, includeContext: Bool = false, file: String = #file, line: Int = #line, function: String = #function) {
-        self.error(text, includeContext: includeContext, file: file, line: line, function: function)
+        printer.error(text, includeContext: includeContext, file: file, line: line, function: function)
     }
 }
 
