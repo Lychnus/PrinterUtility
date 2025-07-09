@@ -15,7 +15,7 @@ public protocol ConsolePrinter {
     ///
     /// - Parameters:
     ///   - text: Message to print.
-    ///   - includeContext: Whether to include file/function/line info in the print output.
+    ///   - includeContext: Whether to include file / function / line info in the print output.
     ///   - file: Auto-injected file name (use default).
     ///   - line: Auto-injected line number (use default).
     ///   - function: Auto-injected function name (use default).
@@ -31,7 +31,7 @@ public protocol ConsolePrinter {
     ///
     /// - Parameters:
     ///   - text: Message to print.
-    ///   - includeContext: Whether to include file/function/line info in the print output.
+    ///   - includeContext: Whether to include file / function / line info in the print output.
     ///   - file: Auto-injected file name (use default).
     ///   - line: Auto-injected line number (use default).
     ///   - function: Auto-injected function name (use default).
@@ -47,7 +47,7 @@ public protocol ConsolePrinter {
     ///
     /// - Parameters:
     ///   - text: Message to print.
-    ///   - includeContext: Whether to include file/function/line info in the print output.
+    ///   - includeContext: Whether to include file / function / line info in the print output.
     ///   - file: Auto-injected file name (use default).
     ///   - line: Auto-injected line number (use default).
     ///   - function: Auto-injected function name (use default).
@@ -63,7 +63,7 @@ public protocol ConsolePrinter {
     ///
     /// - Parameters:
     ///   - text: Message to print.
-    ///   - includeContext: Whether to include file/function/line info in the print output.
+    ///   - includeContext: Whether to include file / function / line info in the print output.
     ///   - file: Auto-injected file name (use default).
     ///   - line: Auto-injected line number (use default).
     ///   - function: Auto-injected function name (use default).
@@ -76,34 +76,80 @@ public protocol ConsolePrinter {
     )
 }
 
-// MARK: - Console Printer Wrapper For Default Parameters
-/// This struct provides a wrapper for `ConsolePrinter` that exposes its internals with default parameters.
-public struct ConsolePrinterWrapper {
-    private let printer: ConsolePrinter
-
-    public init(printer: ConsolePrinter) {
-        self.printer = printer
+// MARK: - Protocol Extension
+extension ConsolePrinter {
+    
+    /// This function will write the `success` print event to the console which is only visible in the development environment.
+    ///
+    /// - Parameters:
+    ///   - text: Message to print.
+    ///   - includeContext: Whether to include file / function / line info in the print output.
+    public func success(_ text: String, includeContext: Bool) {
+        info(text, includeContext: includeContext, file: #file, line: #line, function: #function)
     }
-
-    public func success(_ text: String, includeContext: Bool = false, file: String = #file, line: Int = #line, function: String = #function) {
-        printer.success(text, includeContext: includeContext, file: file, line: line, function: function)
+    
+    /// This function will write the `success` print event to the console which is only visible in the development environment.
+    ///
+    /// - Parameters:
+    ///   - text: Message to print.
+    public func success(_ text: String) {
+        info(text, includeContext: false, file: #file, line: #line, function: #function)
     }
-
-    public func info(_ text: String, includeContext: Bool = false, file: String = #file, line: Int = #line, function: String = #function) {
-        printer.info(text, includeContext: includeContext, file: file, line: line, function: function)
+    
+    /// This function will write the `info` print event to the console which is only visible in the development environment.
+    ///
+    /// - Parameters:
+    ///   - text: Message to print.
+    ///   - includeContext: Whether to include file / function / line info in the print output.
+    public func info(_ text: String, includeContext: Bool) {
+        info(text, includeContext: includeContext, file: #file, line: #line, function: #function)
     }
-
-    public func warning(_ text: String, includeContext: Bool = false, file: String = #file, line: Int = #line, function: String = #function) {
-        printer.warning(text, includeContext: includeContext, file: file, line: line, function: function)
+    
+    /// This function will write the `info` print event to the console which is only visible in the development environment.
+    ///
+    /// - Parameters:
+    ///   - text: Message to print.
+    public func info(_ text: String) {
+        info(text, includeContext: false, file: #file, line: #line, function: #function)
     }
-
-    public func error(_ text: String, includeContext: Bool = false, file: String = #file, line: Int = #line, function: String = #function) {
-        printer.error(text, includeContext: includeContext, file: file, line: line, function: function)
+    
+    /// This function will write the `warning` print event to the console which is only visible in the development environment.
+    ///
+    /// - Parameters:
+    ///   - text: Message to print.
+    ///   - includeContext: Whether to include file / function / line info in the print output.
+    public func warning(_ text: String, includeContext: Bool) {
+        warning(text, includeContext: includeContext, file: #file, line: #line, function: #function)
+    }
+    
+    /// This function will write the `warning` print event to the console which is only visible in the development environment.
+    ///
+    /// - Parameters:
+    ///   - text: Message to print.
+    public func warning(_ text: String) {
+        warning(text, includeContext: false, file: #file, line: #line, function: #function)
+    }
+    
+    /// This function will write the `error` print event to the console which is only visible in the development environment.
+    ///
+    /// - Parameters:
+    ///   - text: Message to print.
+    ///   - includeContext: Whether to include file / function / line info in the print output.
+    public func error(_ text: String, includeContext: Bool) {
+        error(text, includeContext: includeContext, file: #file, line: #line, function: #function)
+    }
+    
+    /// This function will write the `error` print event to the console which is only visible in the development environment.
+    ///
+    /// - Parameters:
+    ///   - text: Message to print.
+    public func error(_ text: String) {
+        error(text, includeContext: false, file: #file, line: #line, function: #function)
     }
 }
 
 // MARK: - Implementation
-/// This struct is responsible for printing actions during development.
+/// This class is responsible for printing actions during development.
 /// It provides formatted, context-aware print messages with severity levels.
 internal class AppPrinter: ConsolePrinter {
     
@@ -153,7 +199,7 @@ internal class AppPrinter: ConsolePrinter {
     /// - Parameters:
     ///   - severity: The severity level of the print output.
     ///   - description: The main message to print.
-    ///   - includeContext: Whether to include file/function/line info in the print output.
+    ///   - includeContext: Whether to include file / function / line info in the print output.
     ///   - context: The resolved context information for the print event.
     private func handle(
         severity: PrintSeverity,
