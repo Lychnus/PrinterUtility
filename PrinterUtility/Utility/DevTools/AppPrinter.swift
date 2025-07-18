@@ -85,7 +85,7 @@ extension ConsolePrinter {
     ///   - text: Message to print.
     ///   - includeContext: Whether to include file / function / line info in the print output.
     public func success(_ text: String, includeContext: Bool) {
-        info(text, includeContext: includeContext, file: #file, line: #line, function: #function)
+        success(text, includeContext: includeContext, file: #file, line: #line, function: #function)
     }
     
     /// This function will write the `success` print event to the console which is only visible in the development environment.
@@ -93,7 +93,7 @@ extension ConsolePrinter {
     /// - Parameters:
     ///   - text: Message to print.
     public func success(_ text: String) {
-        info(text, includeContext: false, file: #file, line: #line, function: #function)
+        success(text, includeContext: false, file: #file, line: #line, function: #function)
     }
     
     /// This function will write the `info` print event to the console which is only visible in the development environment.
