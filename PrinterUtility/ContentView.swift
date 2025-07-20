@@ -48,14 +48,14 @@ extension ContentView {
     private func logButton(_ title: String, severity: Severity, message: String) -> some View {
         Button(title) {
             switch severity {
-            case .success:
-                DevTools.print.success(message, includeContext: shouldPrintWithContext)
-            case .info:
-                DevTools.print.info(message, includeContext: shouldPrintWithContext)
-            case .warning:
-                DevTools.print.warning(message, includeContext: shouldPrintWithContext)
-            case .error:
-                DevTools.print.error(message, includeContext: shouldPrintWithContext)
+                case .success:
+                    DevTools.printer.success(message, contextIncluded: shouldPrintWithContext)
+                case .info:
+                    DevTools.printer.info(message, contextIncluded: shouldPrintWithContext)
+                case .warning:
+                    DevTools.printer.warning(message, contextIncluded: shouldPrintWithContext)
+                case .error:
+                    DevTools.printer.error(message, contextIncluded: shouldPrintWithContext)
             }
         }
     }
